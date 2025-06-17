@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Kalkulator Penjumlahan Bilangan</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #667eea, #764ba2);
+      color: #fff;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    h1 {
+      margin-top: 30px;
+      text-align: center;
+    }
+
+    .container {
+      background-color: rgba(0, 0, 0, 0.2);
+      padding: 30px;
+      border-radius: 15px;
+      margin-top: 20px;
+      width: 90%;
+      max-width: 500px;
+    }
+
+    label, select, input {
+      display: block;
+      margin: 15px 0 10px;
+      width: 100%;
+      font-size: 1rem;
+    }
+
+    input, select {
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+      font-size: 1rem;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background-color: #00c9a7;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    button:hover {
+      background-color: #00a88f;
+    }
+
+    .result {
+      margin-top: 20px;
+      padding: 15px;
+      background-color: rgba(255, 255, 255, 0.2);
+      border-radius: 10px;
+    }
+
+    .result p {
+      margin: 10px 0;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Kalkulator Penjumlahan Bilangan</h1>
+  <div class="container">
+    <label for="format">Pilih Format Bilangan:</label>
+    <select id="format">
+      <option value="2">Biner (basis 2)</option>
+      <option value="10">Desimal (basis 10)</option>
+      <option value="8">Oktal (basis 8)</option>
+      <option value="16">Heksadesimal (basis 16)</option>
+    </select>
+
+    <label for="num1">Bilangan Pertama:</label>
+    <input type="text" id="num1" placeholder="Contoh: 1010">
+
+    <label for="num2">Bilangan Kedua:</label>
+    <input type="text" id="num2" placeholder="Contoh: 1101">
+
+    <button onclick="hitung()">Jumlahkan</button>
+
+    <div class="result" id="hasil">
+      <!-- Hasil akan ditampilkan di sini -->
+    </div>
+  </div>
+
+  <script>
+    function hitung() {
+      const format = document.getElementById('format').value;
+      const num1 = document.getElementById('num1').value.trim();
+      const num2 = document.getElementById('num2').value.trim();
+      const hasilDiv = document.getElementById('hasil');
+
+      try {
+        const dec1 = parseInt(num1, format);
+        const dec2 = parseInt(num2, format);
+
+        if (isNaN(dec1) || isNaN(dec2)) {
+          hasilDiv.innerHTML = `<p style="color: yellow;">Input tidak valid untuk format yang dipilih.</p>`;
+          return;
+        }
+
+        const total = dec1 + dec2;
+
+        hasilDiv.innerHTML = `
+          <p><strong>Desimal:</strong> ${total}</p>
+          <p><strong>Biner:</strong> ${total.toString(2)}</p>
+          <p><strong>Oktal:</strong> ${total.toString(8)}</p>
+          <p><strong>Heksadesimal:</strong> ${total.toString(16).toUpperCase()}</p>
+        `;
+      } catch (e) {
+        hasilDiv.innerHTML = `<p style="color: red;">Terjadi kesalahan!</p>`;
+      }
+    }
+  </script>
+
+</body>
+</html>
